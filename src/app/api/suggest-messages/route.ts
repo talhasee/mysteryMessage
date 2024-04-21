@@ -34,10 +34,7 @@ export async function GET(req: Request) {
       //   if(output){
       //     return new StreamingTextResponse(output);
       //   }
-      // }
-      // console.log(JSON.stringify(response, null, 2));
-      
-    
+      // }    
       return Response.json(
         {
           success: true,
