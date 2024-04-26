@@ -26,16 +26,27 @@ export async function POST(request: Request){
             {email}
         );
 
+        
+        
         const verifyCode = Math.floor(100000 + Math.random()*900000).toString();
-
+        //User already exists but email is not verified so its username will 
+        //be same as the first time when he tried to registered on our website
+        let existingEmailNotVerifiedUser = false;
+        let usernameToSend = "";
+        
         if(existingUserByEmail){
+            // console.log(`CHECKING INSIDE - ${existingUserByEmail}`);
+            usernameToSend = existingUserByEmail.username; 
             if(existingUserByEmail.isVerified){
+                console.log("Email already used!!");
+
                 return Response.json({
                     success: false,
                     message: "User already exist with this email"
                 }, {status: 400});
             }
             else{
+                existingEmailNotVerifiedUser = true;
                 const hashedPassword = await bcrypt.hash(password, 10);
 
                 //UPDATING USER DETAILS AND SAVING IT
@@ -46,6 +57,7 @@ export async function POST(request: Request){
             }
         }
         else{
+
             const hashedPassword = await bcrypt.hash(password, 10);
 
             const expiryDate = new Date();
@@ -64,6 +76,7 @@ export async function POST(request: Request){
 
             await newUser.save();
 
+            usernameToSend = newUser.username;
         }
 
         //SEND VERIFICATION EMAIL
@@ -85,7 +98,8 @@ export async function POST(request: Request){
 
         return Response.json({
             success: true,
-            message: "User Registered Successfully. Please verify your email"
+            message: existingEmailNotVerifiedUser ? "User already exists with email. Please verify your email" : "User Registered Successfully. Please verify your email",
+            username: usernameToSend
         }, {status: 201});
 
     } catch (error) {
