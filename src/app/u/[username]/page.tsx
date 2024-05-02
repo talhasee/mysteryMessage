@@ -163,7 +163,7 @@ function SendMessage() {
           <CardHeader>
             <h3 className="text-xl font-semibold">Messages</h3>
           </CardHeader>
-          <CardContent className="flex flex-col space-y-4">
+          <CardContent className="flex flex-col flex-wrap space-y-4">
             {error ? (
                 <p className="text-red-500">Error in Fetching Suggested Messages</p>
               ) : (
@@ -178,7 +178,7 @@ function SendMessage() {
                     <Button
                       key={index}
                       variant="outline"
-                      className="mb-2"
+                      className="mb-2 text-pretty h-auto"
                       onClick={ () => handleMessageClick(message)}
                     >
                       {message}
