@@ -1,22 +1,15 @@
 'use client'
-import { zodResolver} from "@hookform/resolvers/zod";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import {useDebounceCallback } from "usehooks-ts";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { signUpSchema } from "@/schemas/signUpSchema";
-import axios, { AxiosError } from "axios";
-import { apiResponse } from "@/types/apiResponse";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 
 function page() {
   const { toast } = useToast();
@@ -70,9 +63,9 @@ function page() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Email/Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="email"  
+                    <Input placeholder="email/username"  
                       {...field} 
                     />
                   </FormControl>
@@ -95,11 +88,19 @@ function page() {
                 </FormItem>
               )}
             />
-            <Button type="submit">
+            <Button className="w-full" type="submit">
               Sign-In
             </Button>
             </form>
           </Form>
+          <div className="text-center mt-4">
+            <p>
+              Not a member yet?{' '}
+              <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
+                Sign up
+              </Link>
+            </p>
+          </div>
         </div>
     </div>
   )

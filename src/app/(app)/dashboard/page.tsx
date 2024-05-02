@@ -1,9 +1,11 @@
-import React from 'react'
+'use client'
 
 function page() {
   return (
     <div>
-      dashboard
+      <div>
+        dashboard
+      </div>
     </div>
   )
 }

@@ -192,7 +192,7 @@ function page() {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isSubmitting}>
+            <Button className="w-full" type="submit" disabled={isSubmitting}>
               {
                 isSubmitting ? (
                   <>
