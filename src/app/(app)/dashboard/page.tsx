@@ -1,5 +1,6 @@
 'use client'
 
+import DashboardSkeleton from "@/components/DashboardSkeleton";
 import MessageCard from "@/components/MessageCard";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -15,6 +16,7 @@ import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form";
+
 
 const page = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -121,7 +123,7 @@ const page = () => {
 
     
   if(userSessionFetching){
-    return <div>Loading....</div>
+    return <DashboardSkeleton></DashboardSkeleton>
   }
 
 
