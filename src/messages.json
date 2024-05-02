@@ -1,0 +1,38 @@
+[
+    {
+        "title": "Message from Aarav Patel",
+        "content": "Hey, how's it going?",
+        "received": "5 minutes ago"
+    },
+    {
+        "title": "Message from Nidhi Gupta",
+        "content": "I saw your latest project, impressive!",
+        "received": "1 hour ago"
+    },
+    {
+        "title": "Message from Arjun Reddy",
+        "content": "Do you know any good restaurants around?",
+        "received": "1 day ago"
+    },
+    {
+        "title": "Message from Rajesh Kumar",
+        "content": "Hello, how are you?",
+        "received": "10 minutes ago"
+    },
+    {
+        "title": "Message from Priya Sharma",
+        "content": "I enjoyed our conversation yesterday.",
+        "received": "2 hours ago"
+    },
+    {
+        "title": "Message from Rahul Singh",
+        "content": "Could you help me with some coding tips?",
+        "received": "1 day ago"
+    },
+    {
+        "title": "Message from SecretAdmirer",
+        "content": "I really liked your recent post!",
+        "received": "2 hours ago"
+    }
+  ]
+  
