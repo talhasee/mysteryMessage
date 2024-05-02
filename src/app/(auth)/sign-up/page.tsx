@@ -15,6 +15,29 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { MultiStepLoader as Loader } from "@/components/ui/multi-step-loader";
+
+const signUpStates = [
+  {
+    text: "Initializing sign-up process...",
+  },
+  {
+    text: "Checking for existing user credentials...",
+  },
+  {
+    text: "Creating a new user account...",
+  },
+  {
+    text: "Setting up your user session...",
+  },
+  {
+    text: "Sending verification email...",
+  },
+  {
+    text: "Sign-up successful! Welcome!",
+  },
+];
+
 
 function SignUp() {
   const [username, setUsername] = useState('');
@@ -25,6 +48,7 @@ function SignUp() {
   const debounced = useDebounceCallback(setUsername, 300);
   const { toast } = useToast();
   const router = useRouter();
+  const [signUpLoading, setSignUpLoading] = useState(false);
 
   //zod implementation
   const form = useForm< z.infer<typeof signUpSchema> >({
@@ -62,6 +86,9 @@ function SignUp() {
 
   const onSubmit = async (data: z.infer<typeof signUpSchema> ) => {
     setIsSubmitting(true);
+    setSignUpLoading(true);
+    const startTime = Date.now();
+
     try {
       const response = await axios.post<apiResponse>(`/api/sign-up`, data);
 
@@ -96,6 +123,11 @@ function SignUp() {
 
     }finally{
       setIsSubmitting(false);
+      while (Date.now() - startTime < 3550) {
+        // Wait until at least 2550ms have elapsed
+        await new Promise(resolve => setTimeout(resolve, 10)); // Introduce a small delay to avoid blocking the event loop
+      }
+      setSignUpLoading(false);
     }
   }
 
@@ -106,7 +138,7 @@ function SignUp() {
   return (
 
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-
+      <Loader loadingStates={signUpStates} loading={signUpLoading} duration={592} />
       {
         showAlertDialog && (
           <AlertDialog open={showAlertDialog} onOpenChange={setShowAlertDialog}>

@@ -10,10 +10,34 @@ import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useState } from "react";
+import { MultiStepLoader as Loader } from "@/components/ui/multi-step-loader";
+
+const loadingStates = [
+  {
+    text: "Initializing sign-in process...",
+  },
+  {
+    text: "Checking for existing user credentials...",
+  },
+  {
+    text: "Verifying username and password...",
+  },
+  {
+    text: "Authenticating with the server...",
+  },
+  {
+    text: "Setting up your user session...",
+  },
+  {
+    text: "Sign-in successful! Welcome back!",
+  },
+];
 
 function SignIn() {
   const { toast } = useToast();
   const router = useRouter();
+  const [signInLoading, setSignInLoading] = useState(false);
 
   //zod implementation
   const form = useForm< z.infer<typeof signInSchema> >({
@@ -25,6 +49,9 @@ function SignIn() {
   });
 
   const onSubmit = async (data: z.infer<typeof signInSchema> ) => {
+    setSignInLoading(true);
+    const startTime = Date.now();
+
     const result = await signIn('credentials', {
         redirect: false,
         identifier: data.identifier,
@@ -39,13 +66,24 @@ function SignIn() {
         })
     }
 
+    while (Date.now() - startTime < 3550) {
+      // Wait until at least 2550ms have elapsed
+      await new Promise(resolve => setTimeout(resolve, 10)); // Introduce a small delay to avoid blocking the event loop
+    }
+
     if(result?.url){
         router.replace(`/dashboard`);
     }
+    setSignInLoading(false);
+
   }
+
+
   return (
+    <>
 
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <Loader loadingStates={loadingStates} loading={signInLoading} duration={592} />
         <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
           <div className="text-center">
             <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
@@ -103,6 +141,7 @@ function SignIn() {
           </div>
         </div>
     </div>
+    </>
   )
 }
 
