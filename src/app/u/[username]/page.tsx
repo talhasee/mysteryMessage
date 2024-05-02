@@ -27,7 +27,7 @@ const stringMessageParse = (messageString: string): string[] => {
 
 const initialMessageString = "What's your favorite cuisine?||Have you traveled to any exotic destinations?||What's your go-to hobby?";
 
-function sendMessage() {
+function SendMessage() {
   const params = useParams<{username: string}>();
   const  username = params.username;
   const { toast } = useToast();
@@ -202,4 +202,4 @@ function sendMessage() {
   )
 }
 
-export default sendMessage
+export default SendMessage

@@ -11,7 +11,7 @@ import { signIn } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 
-function page() {
+function SignIn() {
   const { toast } = useToast();
   const router = useRouter();
 
@@ -106,4 +106,4 @@ function page() {
   )
 }
 
-export default page 
+export default SignIn 
