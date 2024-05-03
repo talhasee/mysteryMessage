@@ -1,15 +1,23 @@
 import dbConnect from "@/lib/dbConnect";
 import userModel from "@/models/User.model";
+import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
     await dbConnect();
 
     try {
-        const {username, code} = await request.json();
+        
+        const {username, email, code, password} = await request.json();
 
-        const decodedUsername = decodeURIComponent(username);
         const user = await userModel.findOne({
-            username: decodedUsername
+            $or: [
+                {
+                    username: username
+                },
+                {
+                    email: email
+                }
+            ]
         });
 
         if(!user){
@@ -27,14 +35,16 @@ export async function POST(request: Request) {
         const isCodeValid = user.verifyCode === code;
         const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date();
 
+
         if(isCodeValid && isCodeNotExpired){
-            user.isVerified = true;
+            const hashedPassword = await bcrypt.hash(password, 10);
+            user.password = hashedPassword;
             await user.save();
 
             return Response.json(
                 {
                     success: true,
-                    message: "Account verified successfully"
+                    message: "Password Updated Successfully"
                 },
                 {
                     status: 200
@@ -45,10 +55,10 @@ export async function POST(request: Request) {
             return Response.json(
                 {
                     success: false,
-                    message: "Verification code has expired. Plase sign-up again to get a new code"
+                    message: "Verification code has expired. Please request again code"
                 },
                 {
-                    status: 400
+                    status: 410
                 }
             );
         }
@@ -63,17 +73,17 @@ export async function POST(request: Request) {
                 }
             );
         }
-        
+
     } catch (error) {
-        console.error("Error verifying user", error);
+        console.error(`Error in verifying code or saving password - ${error}`);
         return Response.json(
             {
                 success: false,
-                message: "Error verifying user"
+                message: "Error in verifying code or saving password"
             },
             {
                 status: 500
             }
-        )
+        );
     }
 }
