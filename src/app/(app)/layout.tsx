@@ -35,7 +35,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   return (
-    <div className={`flex flex-col min-h-screen ${inter.className}`}>
+    <div className={`flex flex-col min-h-screen min-w-full ${inter.className}`}>
       <Navbar />
       {children}
     </div>

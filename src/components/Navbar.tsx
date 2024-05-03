@@ -137,7 +137,7 @@ function Navbar() {
 
 
     return (
-            <nav className='p-4 md:p-6 md:gap-5 shadow-md w-screen'>
+            <nav className='p-4 md:p-6 md:gap-5 shadow-md w-full'>
                 <div className="container mx-auto flex flex-row md:flex-row justify-between items-center">
                     <a className="text-lg md:text-xl font-bold" href="#">Mystery Message</a>
                     {

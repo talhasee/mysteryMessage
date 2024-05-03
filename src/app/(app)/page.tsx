@@ -20,40 +20,43 @@ const Home = () => {
           Embark on anonymous adventures where secrets find their voice.  
           </p>
         </section>
-        <Carousel
-          plugins={[Autoplay({delay: 2000})]}
-          opts={{
-            loop: true
-          }}
-         className="w-full max-w-xs">
-        <CarouselContent>
-          {
-            messages.map((message, index) => (
-              <CarouselItem key={index}>
-                <div className="p-1">
-                  <Card>
-                    <CardHeader>
-                      {
-                        message.title
-                      }
-                    </CardHeader>
-                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                      <span className="text-lg font-semibold">{message.content}</span>
-                    </CardContent>
-                    <CardFooter>
-                      {
-                        message.received
-                      }
-                    </CardFooter>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))
-          }
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+        <div>
+          <Carousel
+            plugins={[Autoplay({delay: 2000})]}
+            opts={{
+              loop: true
+            }}
+          className="w-full max-w-xs">
+          <CarouselContent>
+            {
+              messages.map((message, index) => (
+                <CarouselItem key={index}>
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-square items-center justify-center p-6">
+                        <span className="text-lg text-pretty h-auto font-semibold">{message.content}</span>
+                      </CardContent>
+                      <CardFooter>
+                        {
+                          message.received
+                        }
+                      </CardFooter>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))
+            }
+          </CarouselContent>
+          <div className="hidden md:block">
+            <CarouselPrevious />
+          </div>
+          <div className="hidden md:block">
+            <CarouselNext />
+          </div>
+
+        </Carousel>
+
+        </div>
       </main>
   );
 }
