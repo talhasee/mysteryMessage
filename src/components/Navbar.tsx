@@ -137,14 +137,14 @@ function Navbar() {
 
 
     return (
-            <nav className='p-4 md:p-6 md:gap-5 shadow-md'>
+            <nav className='p-4 md:p-6 md:gap-5 shadow-md w-screen'>
                 <div className="container mx-auto flex flex-row md:flex-row justify-between items-center">
                     <a className="text-lg md:text-xl font-bold" href="#">Mystery Message</a>
                     {
                         session  ? (
                             <>
-                                <span className=' font-bolder text-lg md:text-2xl'>Welcome, {user?.username || user?.email}</span>
-                                <Button className='w-auto md:w-auto mr-4' onClick={() => signOut()}>Logout</Button>
+                                <span className=' font-bolder text-base md:text-2xl'>Welcome, {user?.username || user?.email}</span>
+                                <Button className='w-auto md:w-auto mr-4 ml-2 md:ml-0' onClick={() => signOut()}>Logout</Button>
                                 
                                 <Sheet>
                                     <SheetTrigger asChild>
@@ -160,19 +160,19 @@ function Navbar() {
                                         </SheetHeader>
                                         <div className="grid gap-4 py-4">
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label className="text-right text-pretty h-auto">
+                                            <Label className="text-right text-pretty h-auto text-xs md:text-sm">
                                             Username<br/> or Email
                                             </Label>
                                             <Input disabled={codeSentSuccess} id="name" onChange={(e) => setIdentifier(e.target.value)} className="col-span-3" />
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label className="text-right">
+                                            <Label className="text-right text-xs md:text-sm">
                                             New Password
                                             </Label>
                                             <Input disabled={codeSentSuccess} type="password" onChange={(e) => setPassword(e.target.value)} className="col-span-3" />
                                         </div>
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label className="text-right">
+                                            <Label className="text-right text-xs md:text-sm">
                                             Retype Password
                                             </Label>
                                             <Input disabled={codeSentSuccess} type="password" onChange={(e) => setRetypePassword(e.target.value)} className="col-span-3" />
@@ -201,11 +201,11 @@ function Navbar() {
                                         <Button disabled={codeSentSuccess} onClick={sendCode} className="w-1/3 justify-self-end">Send Code</Button>
 
                                         <div className="grid grid-cols-4 items-center gap-4">
-                                            <Label className="text-right">
+                                            <Label className="text-right text-xs md:text-sm">
                                             Verification Code
                                             </Label>
                                             <InputOTP disabled={!codeSentSuccess} maxLength={6} onComplete={(value) => setCode(value)}>
-                                                <InputOTPGroup>
+                                                <InputOTPGroup className="w-48 md:w-auto">
                                                     <InputOTPSlot index={0} />
                                                     <InputOTPSlot index={1} />
                                                     <InputOTPSlot index={2} />
@@ -223,6 +223,24 @@ function Navbar() {
                                         </div>
                                     </SheetContent>
                                     </Sheet>
+
+                                    {alert &&
+                                        <div className='mx-5'>
+                                            <AlertDialog open={alert} onOpenChange={setAlert} >
+                                                <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>{alertHeader}</AlertDialogTitle>
+                                                    <AlertDialogDescription>
+                                                    {alertMessage}
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogAction >OK</AlertDialogAction>
+                                                </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                        </div>
+                                    }
 
                                 
                             </>

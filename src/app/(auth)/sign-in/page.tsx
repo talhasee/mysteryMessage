@@ -263,19 +263,19 @@ function SignIn() {
                 </SheetHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label className="text-right text-pretty h-auto">
+                    <Label className="text-right text-pretty text-xs md:text-sm">
                       Username<br/> or Email
                     </Label>
                     <Input disabled={codeSentSuccess} id="name" onChange={(e) => setIdentifier(e.target.value)} className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label className="text-right">
+                    <Label className="text-right text-xs md:text-sm">
                       New Password
                     </Label>
                     <Input disabled={codeSentSuccess} type="password" onChange={(e) => setPassword(e.target.value)} className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label className="text-right">
+                    <Label className="text-right text-xs md:text-sm">
                       Retype Password
                     </Label>
                     <Input disabled={codeSentSuccess} type="password" onChange={(e) => setRetypePassword(e.target.value)} className="col-span-3" />
@@ -304,11 +304,11 @@ function SignIn() {
                   <Button disabled={codeSentSuccess} onClick={sendCode} className="w-1/3 justify-self-end">Send Code</Button>
 
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label className="text-right">
+                    <Label className="text-right text-xs md:text-sm">
                       Verification Code
                     </Label>
                     <InputOTP disabled={!codeSentSuccess} maxLength={6} onComplete={(value) => setCode(value)}>
-                        <InputOTPGroup>
+                        <InputOTPGroup className="w-48 md:w-auto" >
                             <InputOTPSlot index={0} />
                             <InputOTPSlot index={1} />
                             <InputOTPSlot index={2} />
