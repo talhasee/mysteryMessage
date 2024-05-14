@@ -10,7 +10,7 @@ import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { apiResponse } from "@/types/apiResponse";
 import { useToast } from "@/components/ui/use-toast";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -58,6 +58,8 @@ function SendMessage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async(data: z.infer<typeof messageSchema>) => {
+    console.log(`Entered here`);
+    
     setIsLoading(true);
 
     try {
@@ -128,6 +130,7 @@ function SendMessage() {
                     {...field}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}  
           />

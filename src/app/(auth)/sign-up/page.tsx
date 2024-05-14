@@ -94,7 +94,7 @@ function SignUp() {
 
       //check response validation
 
-      console.log(`Response - ${JSON.stringify(response)}`);
+      // console.log(`Response - ${JSON.stringify(response)}`);
       // console.log(`CHECKING HERE`);
 
       if(response.data.message === "User already exists with email. Please verify your email"){
